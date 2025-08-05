@@ -1,0 +1,123 @@
+/* ===================================
+   PROBABLY NOT - MAIN STYLES
+   =================================== */
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #8b7355 0%, #6b5b73 50%, #4a4238 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #f5f1eb;
+}
+
+/* Container Styles */
+.container {
+    background: rgba(139, 115, 85, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(74, 66, 56, 0.4);
+    border: 1px solid rgba(205, 184, 158, 0.2);
+    text-align: center;
+    max-width: 800px;
+    width: 90%;
+}
+
+/* Typography */
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #d4a574, #b8956a, #9c8357);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.instructions {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Button Styles */
+.main-button {
+    background: linear-gradient(45deg, #b8956a, #9c8357, #8b7355);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    color: #f5f1eb;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(74, 66, 56, 0.3);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.main-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 66, 56, 0.4);
+    background: linear-gradient(45deg, #c4a175, #a68c5d, #967c5a);
+}
+
+/* Loading Animation */
+.loading {
+    display: none;
+    font-size: 1.2rem;
+    margin: 2rem 0;
+}
+
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(245, 241, 235, 0.3);
+    border-radius: 50%;
+    border-top-color: #d4a574;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Error Messages */
+.error-message {
+    background: rgba(180, 120, 100, 0.25);
+    border: 1px solid rgba(180, 120, 100, 0.6);
+    color: #d4a574;
+    padding: 1rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .instructions {
+        font-size: 1rem;
+    }
+}

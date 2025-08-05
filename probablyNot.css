@@ -1,0 +1,114 @@
+/* ===================================
+   PROBABLY NOT - APP SPECIFIC STYLES
+   =================================== */
+
+/* App Container Adjustments */
+body {
+    padding: 1rem;
+}
+
+.container {
+    max-width: 900px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Camera and Video Styles */
+.camera-container {
+    background: rgba(74, 66, 56, 0.4);
+    border-radius: 15px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    position: relative;
+    border: 1px solid rgba(139, 115, 85, 0.3);
+}
+
+#videoElement {
+    width: 100%;
+    max-width: 640px;
+    height: 480px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Control Buttons */
+.controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.control-button {
+    background: rgba(205, 184, 158, 0.15);
+    border: 2px solid rgba(184, 149, 106, 0.4);
+    padding: 0.8rem 1.5rem;
+    color: #f5f1eb;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.control-button:hover {
+    background: rgba(205, 184, 158, 0.25);
+    border-color: rgba(184, 149, 106, 0.6);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(74, 66, 56, 0.2);
+}
+
+/* File Input */
+#fileInput {
+    display: none;
+}
+
+/* Results Display */
+.result-container {
+    display: none;
+    background: rgba(139, 115, 85, 0.15);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-top: 2rem;
+    border: 1px solid rgba(205, 184, 158, 0.2);
+}
+
+.result-image {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 20px rgba(74, 66, 56, 0.4);
+    border: 2px solid rgba(184, 149, 106, 0.3);
+}
+
+.result-text {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    #videoElement {
+        height: 300px;
+    }
+    
+    .result-text {
+        font-size: 1.4rem;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .control-button {
+        width: 200px;
+    }
+}

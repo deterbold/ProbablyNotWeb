@@ -4,184 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Probably Not - Camera</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Arial", sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        padding: 1rem;
-      }
-
-      .container {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        padding: 2rem;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        text-align: center;
-        max-width: 900px;
-        width: 100%;
-      }
-
-      h1 {
-        font-size: 2.5rem;
-        margin-bottom: 2rem;
-        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .camera-container {
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: 15px;
-        padding: 1rem;
-        margin-bottom: 2rem;
-        position: relative;
-      }
-
-      #videoElement {
-        width: 100%;
-        max-width: 640px;
-        height: 480px;
-        border-radius: 10px;
-        object-fit: cover;
-      }
-
-      .controls {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        margin-bottom: 2rem;
-        flex-wrap: wrap;
-      }
-
-      .control-button {
-        background: rgba(255, 255, 255, 0.2);
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        padding: 0.8rem 1.5rem;
-        color: white;
-        border-radius: 25px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-size: 1rem;
-        font-weight: 600;
-      }
-
-      .control-button:hover {
-        background: rgba(255, 255, 255, 0.3);
-        border-color: rgba(255, 255, 255, 0.5);
-        transform: translateY(-1px);
-      }
-
-      .result-container {
-        display: none;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
-        padding: 2rem;
-        margin-top: 2rem;
-      }
-
-      .result-image {
-        max-width: 100%;
-        max-height: 400px;
-        border-radius: 10px;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      }
-
-      .result-text {
-        font-size: 1.8rem;
-        margin-bottom: 1.5rem;
-        font-weight: bold;
-      }
-
-      .loading {
-        display: none;
-        font-size: 1.2rem;
-        margin: 2rem 0;
-      }
-
-      .spinner {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border: 3px solid rgba(255, 255, 255, 0.3);
-        border-radius: 50%;
-        border-top-color: white;
-        animation: spin 1s ease-in-out infinite;
-        margin-right: 10px;
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      .main-button {
-        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-        border: none;
-        padding: 1rem 2rem;
-        font-size: 1.2rem;
-        color: white;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 1px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      }
-
-      .main-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-      }
-
-      #fileInput {
-        display: none;
-      }
-
-      .error-message {
-        background: rgba(255, 107, 107, 0.2);
-        border: 1px solid rgba(255, 107, 107, 0.5);
-        color: #ff6b6b;
-        padding: 1rem;
-        border-radius: 10px;
-        margin: 1rem 0;
-        display: none;
-      }
-
-      @media (max-width: 768px) {
-        .container {
-          padding: 1rem;
-        }
-
-        h1 {
-          font-size: 2rem;
-        }
-
-        #videoElement {
-          height: 300px;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="probablyNot.css" />
   </head>
   <body>
     <div class="container">
-      <h1>📸 Probably Not</h1>
+      <h1>Probably Not</h1>
 
       <div class="camera-container">
         <video id="videoElement" autoplay playsinline muted></video>
@@ -189,13 +17,13 @@
 
       <div class="controls">
         <button class="control-button" onclick="takePicture()">
-          📷 Take a Picture
+          Take a Picture
         </button>
         <button
           class="control-button"
           onclick="document.getElementById('fileInput').click()"
         >
-          📁 Upload a Picture
+          Upload a Picture
         </button>
         <input
           type="file"
@@ -220,7 +48,7 @@
     </div>
 
     <!-- ML5.js Library -->
-    <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
     <!-- Custom JavaScript -->
     <script src="probablyNot.js"></script>
   </body>
