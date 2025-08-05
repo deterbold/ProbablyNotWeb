@@ -21,7 +21,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
-          server-dir: /ProbablyNot/ # This uploads to ridiculous.software/ProbablyNot
+          server-dir: /web/ProbablyNot/ # This uploads to ridiculous.software/ProbablyNot
           exclude: |
             **/.git*
             **/.git*/**
