@@ -35,13 +35,17 @@ h1 {
     object-fit: cover;
 }
 
-/* Control Buttons */
+/* Control Buttons - Initially Hidden */
 .controls {
-    display: flex;
+    display: none;  /* Hidden by default until model loads */
     gap: 1rem;
     justify-content: center;
     margin-bottom: 2rem;
     flex-wrap: wrap;
+}
+
+.controls.visible {
+    display: flex;  /* Show when model is loaded */
 }
 
 .control-button {

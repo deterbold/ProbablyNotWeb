@@ -66,13 +66,20 @@ async function initializeCamera() {
 async function loadModel() {
   try {
     console.log("Starting to load MobileNet model...");
+    showModelLoading();
+
     // Load the MobileNet model with async/await syntax
     classifier = await ml5.imageClassifier("MobileNet");
     console.log("MobileNet model loaded successfully!");
     isModelLoaded = true;
+
+    // Show the control buttons now that model is ready
+    showControlButtons();
+    hideModelLoading();
   } catch (error) {
     console.error("Error loading ML5 model:", error);
     showError("Failed to load AI model. Please refresh the page.");
+    hideModelLoading();
   }
 }
 
@@ -200,7 +207,7 @@ function showResult(imageUrl, prediction) {
 
   // Hide camera and controls
   document.querySelector(".camera-container").style.display = "none";
-  document.querySelector(".controls").style.display = "none";
+  hideControlButtons();
 
   // Show result
   resultContainer.style.display = "block";
@@ -213,15 +220,63 @@ function restartApp() {
   // Hide result
   document.getElementById("resultContainer").style.display = "none";
 
-  // Show camera and controls
+  // Show camera and controls (only if model is loaded)
   document.querySelector(".camera-container").style.display = "block";
-  document.querySelector(".controls").style.display = "flex";
+  if (isModelLoaded) {
+    showControlButtons();
+  }
 
   // Reset file input
   document.getElementById("fileInput").value = "";
 
   // Clear any error messages
   hideError();
+}
+
+/**
+ * Show control buttons when model is loaded
+ */
+function showControlButtons() {
+  const controlsElement = document.querySelector(".controls");
+  if (controlsElement) {
+    controlsElement.classList.add("visible");
+    console.log("Control buttons are now visible");
+  }
+}
+
+/**
+ * Hide control buttons
+ */
+function hideControlButtons() {
+  const controlsElement = document.querySelector(".controls");
+  if (controlsElement) {
+    controlsElement.classList.remove("visible");
+  }
+}
+
+/**
+ * Show model loading message
+ */
+function showModelLoading() {
+  // You can add a specific loading message for model loading if desired
+  const loadingElement = document.getElementById("loading");
+  if (loadingElement) {
+    loadingElement.innerHTML = '<div class="spinner"></div>Loading AI model...';
+    loadingElement.style.display = "block";
+  }
+}
+
+/**
+ * Hide model loading message
+ */
+function hideModelLoading() {
+  const loadingElement = document.getElementById("loading");
+  if (loadingElement) {
+    loadingElement.style.display = "none";
+    // Reset to original message for image analysis
+    loadingElement.innerHTML =
+      '<div class="spinner"></div>Analyzing image with ML5.js...';
+  }
 }
 
 /**
