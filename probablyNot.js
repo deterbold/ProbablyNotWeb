@@ -4,9 +4,32 @@ let classifier;
 let isModelLoaded = false;
 
 // Initialize the application when page loads
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
   initializeCamera();
-  loadModel();
+
+  // Wait for ML5.js to load before initializing model
+  if (typeof ml5 !== "undefined") {
+    await loadModel();
+  } else {
+    // Wait for ML5.js to load
+    const checkML5 = setInterval(async () => {
+      if (typeof ml5 !== "undefined") {
+        console.log("ML5.js loaded successfully");
+        clearInterval(checkML5);
+        await loadModel();
+      }
+    }, 100);
+
+    // Timeout after 10 seconds
+    setTimeout(() => {
+      if (typeof ml5 === "undefined") {
+        clearInterval(checkML5);
+        showError(
+          "Failed to load ML5.js library. Please check your internet connection and refresh the page."
+        );
+      }
+    }, 10000);
+  }
 });
 
 /**
@@ -40,10 +63,13 @@ async function initializeCamera() {
 /**
  * Load ML5.js MobileNet model for image classification
  */
-function loadModel() {
+async function loadModel() {
   try {
-    // Load the MobileNet model
-    classifier = ml5.imageClassifier("MobileNet", modelLoaded);
+    console.log("Starting to load MobileNet model...");
+    // Load the MobileNet model with async/await syntax
+    classifier = await ml5.imageClassifier("MobileNet");
+    console.log("MobileNet model loaded successfully!");
+    isModelLoaded = true;
   } catch (error) {
     console.error("Error loading ML5 model:", error);
     showError("Failed to load AI model. Please refresh the page.");
@@ -51,7 +77,7 @@ function loadModel() {
 }
 
 /**
- * Callback function when model is loaded
+ * Callback function when model is loaded (legacy support)
  */
 function modelLoaded() {
   console.log("MobileNet model loaded successfully!");
@@ -121,16 +147,17 @@ async function analyzeImage(img, imageUrl) {
   showLoading();
 
   try {
-    // Classify the image using ML5.js
-    const results = await new Promise((resolve, reject) => {
-      classifier.classify(img, (error, results) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(results);
-        }
-      });
-    });
+    console.log("Starting image analysis...");
+    console.log("Model loaded status:", isModelLoaded);
+    console.log("Classifier object:", classifier);
+
+    if (!isModelLoaded || !classifier) {
+      throw new Error("Model not loaded yet");
+    }
+
+    // Classify the image using ML5.js with async/await
+    console.log("Calling classifier.classify...");
+    const results = await classifier.classify(img);
 
     console.log("Classification results:", results);
 
@@ -138,11 +165,14 @@ async function analyzeImage(img, imageUrl) {
     let thirdMostLikely;
     if (results && results.length >= 3) {
       thirdMostLikely = results[2].label;
+      console.log("Using 3rd result:", thirdMostLikely);
     } else if (results && results.length > 0) {
       // If less than 3 results, use the last available one
       thirdMostLikely = results[results.length - 1].label;
+      console.log("Using last available result:", thirdMostLikely);
     } else {
       thirdMostLikely = "mysterious object";
+      console.log("No results, using default");
     }
 
     // Clean up the label (remove commas and take first part if multiple labels)
@@ -151,7 +181,7 @@ async function analyzeImage(img, imageUrl) {
     showResult(imageUrl, thirdMostLikely);
   } catch (error) {
     console.error("Error analyzing image:", error);
-    showError("Failed to analyze image. Please try again.");
+    showError(`Failed to analyze image: ${error.message}. Please try again.`);
   } finally {
     hideLoading();
   }
